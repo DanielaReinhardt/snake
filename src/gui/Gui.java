@@ -101,12 +101,12 @@ public class Gui extends Thread{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == button){
-                    Gui g = new Gui();
-                    GameClock gc = new GameClock();
-                    
-                    GameClock.restartRequest = true;
-    
                     System.out.println("starte den Mist einfach neu");
+                    GameClock.restart();         
+                  
+                   //GameClock.restartRequest = true;
+    
+                   
                     
                    // set(gc.restartRequest);
                     //GameClock.restartRequest = true; 
