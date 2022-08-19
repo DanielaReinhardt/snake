@@ -12,11 +12,15 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import src.actions.Collision;
 import src.actions.KeyHandler;
 import src.clocks.GameClock;
+import src.game.Head;
+import src.game.Pickup;
 import src.game.Snake;
+import src.game.Tail;
 
-public class Gui {
+public class Gui extends Thread{
 
     // Singleton Pattern:
     // sicherstellen, dass die Gui nur einmal instanziert werden kann
@@ -58,7 +62,7 @@ public class Gui {
         // werden Dinge selbst angereiht
         jf.setResizable(false); // nicht in Größe veränderbar, dann keine Skalierung erforderlich
         jf.addKeyListener(new KeyHandler());
-        jf.setFocusable(true);
+        jf.setFocusable(true); //damit die Tasten nach Hinzufügen des Button (mit eigenem Keylistener) noch funktionieren
         jf.add(layeredPane);
       
 
@@ -92,17 +96,47 @@ public class Gui {
         }
     }
 
-   public void addButtonAction() {
-       button.addActionListener(new ActionListener(){
-           @Override
-           public void actionPerformed(ActionEvent e){
-               GameClock gc = new GameClock();
-              // System.exit(0); //Fenster schließt sich damit
-               // gc.run(); geht nicht weil while-Schleife sich verheddert
-              }
-            
-           
+    public void addButtonAction() {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == button){
+                    Gui g = new Gui();
+                    GameClock gc = new GameClock();
+                    
+                    GameClock.restartRequest = true;
+    
+                    System.out.println("starte den Mist einfach neu");
+                    
+                   // set(gc.restartRequest);
+                    //GameClock.restartRequest = true; 
+                }
+                
+            }
+
         });
-   }
+    }
+
+    // protected void set(boolean restartRequest) {
+    //     GameClock gc = new GameClock();
+    //     gc.restartRequest =true;
+    // }
+
+    // @Override
+    // public void actionPerformed(ActionEvent e){
+    //     if(e.getSource() == button) {
+    //          GameClock gameClock = new GameClock();
+    //         this.remove(gameClock);
+    //         gameClock = new GameClock();
+    //         this.add(gameClock);
+    //     }
+    // }
 
 }
+   
+        
+   
+
+   
+
+

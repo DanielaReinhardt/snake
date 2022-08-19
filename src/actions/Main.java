@@ -12,6 +12,7 @@ public class Main {
         
         g.create();
         gc.start();
+             
 
        g.addButtonAction();
         
