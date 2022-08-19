@@ -43,7 +43,6 @@ public class Gui {
     public int width = 800, height = 600; // größe des Fensters, könnte man auch private machen
     public int xoff = 130, yoff = 20; // Spielfeld in etwa in der Mitte des Fensters, zum Verwenden in der
     // Draw-Klasse
-    private JButton button = new JButton("Start");
 
     public void create() {
         // Titel
@@ -63,6 +62,18 @@ public class Gui {
         d.setBounds(0, 0, width, height);
         d.setVisible(true); // macht das Spielfeld sichtbar.
         layeredPane.add(d, 0, 0); // Draw dem JLayeredPane hinzufügen
+
+        JButton button = new JButton("Start");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button) {
+                    System.out.println("starte den Mist einfach neu");
+                    Snake.reset();
+                    // GameClock.restartRequested = true;
+                }
+            }
+        });
 
         scoreLabel.setText("Current score: " + snake.score());
         scoreLabel.setVisible(true);
@@ -88,18 +99,5 @@ public class Gui {
             setText("Current score: " + snake.score());
             repaint();
         }
-    }
-
-    public void addButtonAction() {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == button) {
-                    System.out.println("starte den Mist einfach neu");
-                    Snake.reset();
-                    // GameClock.restartRequested = true;
-                }
-            }
-        });
     }
 }
