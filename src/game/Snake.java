@@ -10,8 +10,12 @@ public class Snake {
 
     public static Head head = new Head(7, 7);
     public static ArrayList<Tail> tails = new ArrayList<>();
-   
-    
+
+    public static void reset() {
+        head.setX(7);
+        head.setY(7);
+        tails.clear();
+    }
 
     public static Pickup pickup = new Pickup();
 
@@ -22,18 +26,17 @@ public class Snake {
             tails.add(new Tail(tails.get(tails.size() - 1).x, tails.get(tails.size() - 1).y));
         }
     }
-    //am besten nicht static die nächsten 3,,,
+
+    // am besten nicht static die nächsten 3,,,
     public Integer score() {
         int score = tails.size();
-        
+
         return score;
     }
 
-    
-
     public void move() {
         // Move Tails
-        
+
         if (tails.size() >= 2) {
             for (int i = tails.size() - 1; i >= 1; i--) {
                 if (tails.get(i).isWait()) {
@@ -55,7 +58,7 @@ public class Snake {
         }
 
         // Move head
-       
+
         switch (head.getDir()) {
             case RIGHT:
                 head.setX(head.getX() + 1);
@@ -70,7 +73,6 @@ public class Snake {
                 head.setY(head.getY() + 1);
                 break;
         }
-    
 
     }
 
@@ -82,7 +84,7 @@ public class Snake {
 
         return p;
 
-        //static bei Utility_Methoden
+        // static bei Utility_Methoden
     }
 
 }

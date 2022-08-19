@@ -12,15 +12,10 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import src.actions.Collision;
 import src.actions.KeyHandler;
-import src.clocks.GameClock;
-import src.game.Head;
-import src.game.Pickup;
 import src.game.Snake;
-import src.game.Tail;
 
-public class Gui extends Thread{
+public class Gui {
 
     // Singleton Pattern:
     // sicherstellen, dass die Gui nur einmal instanziert werden kann
@@ -32,7 +27,7 @@ public class Gui extends Thread{
         return guiInstance;
     }
 
-    private Gui (){
+    private Gui() {
 
     }
 
@@ -44,12 +39,11 @@ public class Gui extends Thread{
     private JLayeredPane layeredPane = new JLayeredPane();
     private JPanel scorePanel = new JPanel();
     private ScoreLabel scoreLabel = new ScoreLabel();
-    
 
     public int width = 800, height = 600; // größe des Fensters, könnte man auch private machen
     public int xoff = 130, yoff = 20; // Spielfeld in etwa in der Mitte des Fensters, zum Verwenden in der
     // Draw-Klasse
-    private JButton button = new JButton ("Start");
+    private JButton button = new JButton("Start");
 
     public void create() {
         // Titel
@@ -61,10 +55,9 @@ public class Gui extends Thread{
         // gewisse Positionen setzten will, dann muss man Layout auf null setzen sonst
         // werden Dinge selbst angereiht
         jf.setResizable(false); // nicht in Größe veränderbar, dann keine Skalierung erforderlich
-        jf.addKeyListener(new KeyHandler());
-        jf.setFocusable(true); //damit die Tasten nach Hinzufügen des Button (mit eigenem Keylistener) noch funktionieren
+        jf.setFocusable(true); // damit die Tasten nach Hinzufügen des Button (mit eigenem Keylistener) noch
+                               // funktionieren
         jf.add(layeredPane);
-      
 
         d = new Draw();
         d.setBounds(0, 0, width, height);
@@ -78,9 +71,10 @@ public class Gui extends Thread{
         scorePanel.add(scoreLabel);
         scorePanel.setBackground(new Color(255, 255, 255, 127));
         scorePanel.setVisible(true);
-        scorePanel.add(button); //vermutlich selbst Keylistener, daher steuerung nicht mehr möglich
+        scorePanel.add(button); // vermutlich selbst Keylistener, daher steuerung nicht mehr möglich
         layeredPane.add(scorePanel, 1, 0);
-        
+
+        d.addKeyListener(new KeyHandler());
 
         // Zu guter Letzt
         jf.requestFocus(); // zum Hinzufügen der Tastatureingabe
@@ -100,43 +94,12 @@ public class Gui extends Thread{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == button){
+                if (e.getSource() == button) {
                     System.out.println("starte den Mist einfach neu");
-                    GameClock.restart();         
-                  
-                   //GameClock.restartRequest = true;
-    
-                   
-                    
-                   // set(gc.restartRequest);
-                    //GameClock.restartRequest = true; 
+                    Snake.reset();
+                    // GameClock.restartRequested = true;
                 }
-                
             }
-
         });
     }
-
-    // protected void set(boolean restartRequest) {
-    //     GameClock gc = new GameClock();
-    //     gc.restartRequest =true;
-    // }
-
-    // @Override
-    // public void actionPerformed(ActionEvent e){
-    //     if(e.getSource() == button) {
-    //          GameClock gameClock = new GameClock();
-    //         this.remove(gameClock);
-    //         gameClock = new GameClock();
-    //         this.add(gameClock);
-    //     }
-    // }
-
 }
-   
-        
-   
-
-   
-
-

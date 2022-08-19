@@ -1,23 +1,20 @@
 package src.gui;
+
 import src.game.Snake;
 import javax.swing.*;
 
-
 import java.awt.*;
-
 
 public class Draw extends JLabel {
     Snake snake = new Snake();
     Point p;
     Integer score = snake.score();
     Gui gui = Gui.GuiInstance();
-    
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        
 
         // draw Backgroud
         g.setColor(Color.LIGHT_GRAY); // Hintergrund
@@ -55,7 +52,6 @@ public class Draw extends JLabel {
 
         repaint(); // damit es neugezeichnet wird
 
-       
-        
+        requestFocus();
     }
 }
